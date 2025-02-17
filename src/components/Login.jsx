@@ -1,5 +1,6 @@
 function Login({ setLogin }) {
 
+    {/* Cambiar el estado del log in en base al input */}
     const validateForm = () => {
       const username = document.getElementById("username").value;
       const password = document.getElementById("password").value;
