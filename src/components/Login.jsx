@@ -1,30 +1,37 @@
+import { useNavigate } from "react-router-dom";
+
+
 function Login({ setLogin }) {
 
-    {/* Cambiar el estado del log in en base al input */}
-    const validateForm = () => {
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
-  
-      if (username === "admin" || password === "password") {
-        setLogin(true)
-      }
-      else {
-        alert("Invalid username or password")
-      }
+  const navigate = useNavigate();
+
+  {/* Cambiar el estado del log in en base al input */ }
+  const validateForm = (e) => {
+    e.preventDefault();
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    if (username === "admin" || password === "password") {
+      setLogin(true)
+      navigate('/admin')
     }
-  
-    return (
-      <div className="container">
-        <div style={{ width: '100%', alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
-          <div className="logo"></div>
-        </div>
-        <h1>Log In</h1>
-        <form action="">
-          <input type="text" id="username" placeholder="Username" required />
-          <input type="password" id="password" placeholder="Password" required />
-          <button type="submit" onClick={validateForm}>Log In</button>
-        </form>
-        <style jsx>{`
+    else {
+      alert("Invalid username or password")
+    }
+  }
+
+  return (
+    <div className="container">
+      <div style={{ width: '100%', alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
+        <div className="logo"></div>
+      </div>
+      <h1>Log In</h1>
+      <form action="">
+        <input type="text" id="username" placeholder="Username" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <button type="submit" onClick={validateForm}>Log In</button>
+      </form>
+      <style jsx>{`
           @keyframes spin {
             0% {
               transform: rotate(0deg);
@@ -94,9 +101,8 @@ function Login({ setLogin }) {
             cursor: pointer;
           }
         `}</style>
-      </div>
-    )
-  }
-  
-  export default Login
-  
+    </div>
+  )
+}
+
+export default Login;

@@ -1,5 +1,6 @@
-import { use, useState } from 'react'
-import './App.css'
+import { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import './App.css';
 import Login from './components/Login';
 import AdminPage from './components/AdminPage';
 
@@ -8,8 +9,14 @@ function App() {
 
 
   return (
-    login ? <AdminPage setLogin={setLogin}/> : <Login setLogin={setLogin}/>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login setLogin={setLogin} />} />
+        <Route path="/login" element={<Login setLogin={setLogin} />} />
+        <Route path="/admin" element={login ? <AdminPage setLogin={setLogin} /> : <Navigate to="/login" />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
