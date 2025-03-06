@@ -10,7 +10,6 @@ function Login({ setLogin }) {
     e.preventDefault();
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-
     if (username === "admin" || password === "password") {
       setLogin(true)
       navigate('/admin')
