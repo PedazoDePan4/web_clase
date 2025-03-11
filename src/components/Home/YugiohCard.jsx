@@ -1,6 +1,5 @@
 
 function YugiohCard({ data }) {
-    console.log(data);
     return (
         <div className="card">
             {data && <div>

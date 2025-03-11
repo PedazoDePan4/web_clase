@@ -6,7 +6,15 @@ function HomePage({ setLogin }) {
   const [data, setData] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 5;
+  // Calculate the cards to display based on the current page
+  const indexOfLastCard = currentPage * cardsPerPage;
+  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+  const currentCards = cards.slice(indexOfFirstCard, indexOfLastCard);
 
+  // Handle page change
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Fetch the data from the Yugioh API
   useEffect(() => {
     if (!data) {
       fetch("https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=Blue-Eyes")
@@ -27,12 +35,13 @@ function HomePage({ setLogin }) {
     setCards(prevCards => [...prevCards, <YugiohCard data={cardData} key={cardData.id} />]);
   }
 
+  // Print all Yugioh cards to the screen
   function printYugiohCards() {
     setCards([]);
     console.log("Printing cards");
+    // Check if the data is available
     if (data && data.data) {
       data.data.forEach(card => {
-        console.log(card.name);
         spawnYugiohCard(card);
       });
     } else {
@@ -40,29 +49,22 @@ function HomePage({ setLogin }) {
     }
   }
 
+  // Search for a Yugioh card based on the search bar
   function searchYugiohCard() {
     const search = document.getElementById("search").value;
     console.log(search);
+    setCards([]);
     if (search) {
-      fetch(`https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=${search}`)
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          }
-        })
-        .then(json => setData(json))
-        .catch(error => console.log(error));
+      data.data.forEach(card => {
+        if (card.name.toLowerCase().includes(search.toLowerCase())) {
+          spawnYugiohCard(card);
+        }
+      });
     }
-    printYugiohCards();
+    else {
+      printYugiohCards();
+    }
   }
-
-  // Calculate the cards to display based on the current page
-  const indexOfLastCard = currentPage * cardsPerPage;
-  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-  const currentCards = cards.slice(indexOfFirstCard, indexOfLastCard);
-
-  // Handle page change
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div>
