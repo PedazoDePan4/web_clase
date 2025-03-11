@@ -1,39 +1,23 @@
-import { useEffect, useState } from "react";
 
-function YugiohCard({ cardName }) {
-    const [data, setData] = useState(null);
-    useEffect(() => {
-        if (!data) {
-            fetch("https://db.ygoprodeck.com/api/v7/cardinfo.php?name=" + cardName)
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    }
-                })
-                .then(json => setData(json))
-                .catch(error => console.log(error))
-        }
-        console.log(data);
-        console.log(data?.data[0]?.name);
-        console.log(data?.data[0]?.card_images[0]?.image_url);
-    }, [data, cardName]);
+function YugiohCard({ data }) {
+    console.log(data);
     return (
         <div className="card">
             {data && <div>
-                {data?.data[0]?.type === "Effect Monster" || data?.data[0]?.type === "Normal Monster" ? (
+                {data?.type === "Effect Monster" || data?.type === "Normal Monster" ? (
                     <div>
-                        <h1>{data?.data[0]?.name}</h1>
-                        <p>ATK {data?.data[0]?.atk}</p>
-                        <p>DEF {data?.data[0]?.def}</p>
-                        <img src={data?.data[0]?.card_images[0]?.image_url} alt={data?.data[0]?.name} />
-                        <p>{data?.data[0]?.desc}</p>
+                        <h1>{data?.name}</h1>
+                        <p>ATK {data?.atk}</p>
+                        <p>DEF {data?.def}</p>
+                        <img src={data?.card_images[0]?.image_url} alt={data?.name} />
+                        <p>{data?.desc}</p>
                     </div>
                 ) : (
                     <div>
-                        <h1>{data?.data[0]?.name}</h1>
-                        <p>{data?.data[0]?.type}</p>
-                        <img src={data?.data[0]?.card_images[0]?.image_url} alt={data?.data[0]?.name} />
-                        <p>{data?.data[0]?.desc}</p>
+                        <h1>{data?.name}</h1>
+                        <p>{data?.type}</p>
+                        <img src={data?.card_images[0]?.image_url} alt={data?.name} />
+                        <p>{data?.desc}</p>
                     </div>
                 )}
             </div>}
