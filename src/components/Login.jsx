@@ -29,6 +29,8 @@ function Login({ setLogin }) {
         <input type="text" id="username" placeholder="Username" required />
         <input type="password" id="password" placeholder="Password" required />
         <button type="submit" onClick={validateForm}>Log In</button>
+        <button onClick={() => navigate('/signup')}>Sign Up</button>
+        <button onClick={() => navigate('/reset')}>Reset Password</button>
       </form>
       <style jsx>{`
           @keyframes spin {

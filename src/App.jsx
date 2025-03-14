@@ -5,6 +5,8 @@ import Login from './components/Login';
 import AdminPage from './components/AdminPage';
 import HomePage from './components/HomePage';
 import Navbar from './components/Navbar';
+import Signup from './components/Signup';
+import ResetPassword from './components/ResetPassword';
 
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Login setLogin={setLogin} />} />
         <Route path="/login" element={<Login setLogin={setLogin} />} />
+        <Route path='/signup' element={<Signup/>} />
+        <Route path='/reset' element={<ResetPassword/>} />
         <Route path='/home' element={login ? <HomePage setLogin={setLogin} /> : <Navigate to="/login" />} />
         <Route path="/admin" element={login ? <AdminPage setLogin={setLogin} /> : <Navigate to="/login" />} />
       </Routes>
