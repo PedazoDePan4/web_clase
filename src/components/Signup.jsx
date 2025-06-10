@@ -8,6 +8,8 @@ function Signup() {
         <div>
             <h1>Signup</h1>
             <form action="">
+                <input type="text" id="name" placeholder="Name" required />
+                <input type="email" id="email" placeholder="Email" required />
                 <input type="text" id="username" placeholder="Username" required />
                 <input type="password" id="password" placeholder="Password" required />
                 <button type="submit" onClick={console.log("amogus")}>Log In</button>
